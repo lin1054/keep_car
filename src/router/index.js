@@ -13,6 +13,11 @@ const routes = [
     path: '/hycService',
     name: 'hycService',
     component: () => import('@/views/hycService')
+  },
+  {
+    path: '/hycTree',
+    name: 'hycTree',
+    component: () => import('@/views/hycTree')
   }
 
 ]

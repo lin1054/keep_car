@@ -7,7 +7,7 @@ const TOKEN_KEY = 'HYC_USER'
 export default new Vuex.Store({
   state: {
     // user是一个对象
-    user: JSON.parse(window.localStorage.getItem(TOKEN_KEY)) || null
+    user: JSON.parse(window.localStorage.getItem(TOKEN_KEY))
   },
   mutations: {
     setUser (state, data) {

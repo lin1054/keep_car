@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { login, sendSms } from '../../api/user'
+
 export default {
   name: 'LoginIndex',
   data () {
@@ -90,13 +92,30 @@ export default {
     }
   },
   methods: {
-    onSubmit (values) {
-      console.log('submit', values)
-      this.$router.push({ path: '/hycService' })
+    async onSubmit () {
+      const user = this.user
+      try {
+        console.log('try')
+        const { data: res } = await login(user)
+        if (res.status !== 0) return alert(res.msg)
+        console.log('登陆成功')
+        console.log(res)
+        this.$store.commit('setUser', res.token)
+        this.$router.push({ path: '/hycService' })
+      } catch (err) {
+        return console.log('登陆失败', err)
+      }
     },
     async onClick () {
+      const userRegser = this.user
+      console.log(userRegser)
+      const date = Date.parse(new Date())
+      console.log(date)
       try {
         await this.$refs.loginIndex.validate('mobile')
+        const res = await sendSms(userRegser)
+        // console.log(userRegser)
+        console.log(res)
       } catch (err) {
         return console.log('验证失败', err)
       }
